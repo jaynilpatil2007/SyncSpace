@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
+import { userStore } from "../../store/userStore.js";
 
 const StarField = () => {
   const stars = Array.from({ length: 28 }, (_, i) => ({
     id: i,
+    // eslint-disable-next-line react-hooks/purity
     x: Math.random() * 100,
+    // eslint-disable-next-line react-hooks/purity
     y: Math.random() * 100,
+    // eslint-disable-next-line react-hooks/purity
     size: Math.random() * 2 + 1,
+    // eslint-disable-next-line react-hooks/purity
     opacity: Math.random() * 0.5 + 0.2,
   }));
 
@@ -98,6 +103,8 @@ export default function Signin() {
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const { signup } = userStore();
+
   useEffect(() => {
     setTimeout(() => setMounted(true), 50);
   }, []);
@@ -106,14 +113,17 @@ export default function Signin() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
+
+    await signup(form);
+
+    setLoading(false);
   };
 
   const inputFields = [
-    { name: "name", placeholder: "Full Name", type: "text", icon: <UserIcon /> },
+    { name: "fullname", placeholder: "Full Name", type: "text", icon: <UserIcon /> },
     { name: "email", placeholder: "Email Address", type: "email", icon: <EmailIcon /> },
     { name: "password", placeholder: "Password", type: showPassword ? "text" : "password", icon: <LockIcon /> },
   ];

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import { userStore } from "../../store/userStore";
 
 const StarField = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -40,13 +41,17 @@ const StarField = () => (
 );
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({ email:"", password: ""});
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const { login } = userStore();
+
+  const handleLogin = async () => {
     setLoading(true);
-    setTimeout(() => setLoading(false), 1800);
+
+    login(form);
+
+    setLoading(false);
   };
 
   return (
@@ -90,8 +95,8 @@ export default function Login() {
             <input
               type="email"
               placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={(e) => setForm({...form, email: e.target.value})}
               className="bg-transparent text-white placeholder-neutral-500 text-sm w-full outline-none"
             />
           </div>
@@ -107,9 +112,9 @@ export default function Login() {
             </svg>
             <input
               type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter Password"
+              value={form.password}
+              onChange={(e) => setForm({...form, password: e.target.value})}
               className="bg-transparent text-white placeholder-neutral-500 text-sm w-full outline-none"
             />
           </div>
