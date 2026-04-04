@@ -30,6 +30,12 @@ export const useDocStore = create((set, get) => ({
             return;
         }
 
+        // Guard: reject invalid docIds (e.g. the string "undefined")
+        if (typeof docId !== "string" || !/^[a-fA-F0-9]{24}$/.test(docId)) {
+            console.warn("initEditor: invalid docId, skipping init:", docId);
+            return;
+        }
+
         set({ quill: quillInstance, docId });
 
         // 📥 Offline-first: load from IDB cache first (instant), then sync from server
@@ -73,18 +79,27 @@ export const useDocStore = create((set, get) => ({
             console.error("IDB error during load:", dbErr);
         }
 
-        // 📡 Join socket room
+        // 📡 Join socket room — handle timing race: socket may not be .connected yet
         const socket = getSocket();
-        if (socket?.connected) {
-            socket.emit("join-doc", docId);
 
+        const setupSocketRoom = (sock) => {
+            sock.emit("join-doc", docId);
             // Remove stale listeners before attaching fresh ones
-            socket.off("receive-changes");
-            socket.on("receive-changes", (delta) => {
+            sock.off("receive-changes");
+            sock.on("receive-changes", (delta) => {
                 quillInstance.updateContents(delta);
             });
+        };
+
+        if (socket?.connected) {
+            // Already connected — join immediately
+            setupSocketRoom(socket);
+        } else if (socket) {
+            // Socket exists but handshake not done yet — wait for it
+            socket.once("connect", () => setupSocketRoom(socket));
+            console.log("Socket not yet connected — will join room on connect");
         } else {
-            console.warn("Socket not connected — real-time sync disabled");
+            console.warn("No socket available — real-time sync disabled");
         }
 
         // ✍️ User typing handler

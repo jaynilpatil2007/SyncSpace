@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useProjectStore } from "../../store/projectStore";
+import { useNavigate } from "react-router";
 
 const starPositions = [
   { top: "14%", left: "7%",  size: 14, cross: true },
@@ -135,17 +136,36 @@ export default function CreateProject() {
   const mounted = true;
   const [success, setSuccess] = useState(false);
 
+  const navigate = useNavigate();
+
   const { createProject } = useProjectStore();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
       
     if (!form.projName.trim() || !form.projPassword.trim()) {
       setShake(true);
       setTimeout(() => setShake(false), 600);
       return;
     }
-    createProject(form);
-    setLoading(true);
+    try {
+      setLoading(true);
+
+      const res = await createProject(form);
+      console.log(res);
+
+      setSuccess(true);
+
+      setTimeout(( ) => {
+        navigate(`/getstart/${res._id}`);
+      }, 500)
+
+      
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

@@ -16,6 +16,7 @@ export const useProjectStore = create((set, get) => ({
             const res = await axiosInstance.post("/getstart/create", data);
 
             toast.success(res.data.data || "Project created successfully");
+            return res.data;
 
         } catch (error) {
             toast.error(error?.response?.data?.message || "Failed to create project");
@@ -29,12 +30,13 @@ export const useProjectStore = create((set, get) => ({
         try {
             set({ isJoiningProject: true });
 
-            const res = await axiosInstance.post("/project/join", data);
-
-            toast.success(res.data.message || "Joined project successfully");
+            const res = await axiosInstance.post("/getstart/join", data);
+            toast.success(res.data.data || "Joined project successfully");
+            return res.data;
 
         } catch (error) {
             toast.error(error?.response?.data?.message || "Failed to join project");
+            throw error;
         } finally {
             set({ isJoiningProject: false });
         }
@@ -45,7 +47,7 @@ export const useProjectStore = create((set, get) => ({
         try {
             set({ isLoadingProject: true });
 
-            const res = await axiosInstance.get(`/project/${projId}`);
+            const res = await axiosInstance.get(`/getstart/${projId}`);
 
             set({ project: res.data.data });
 

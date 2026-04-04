@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
 import { useProjectStore } from '../../store/projectStore';
+import { useNavigate } from 'react-router';
 
 const ResponsiveProjectAuth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ projName: "", projPassword: ""});
 
+  const navigation = useNavigate();
+
   const { joinProject } = useProjectStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    joinProject(form);
+    try {
+      const res = await joinProject(form);
+      console.log(res);
+
+      navigation(`/getstart/${res._id}`)
+    } catch (error) {
+      console.error(error);
+    }
+    
   }
 
   return (

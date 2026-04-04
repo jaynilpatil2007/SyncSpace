@@ -24,15 +24,21 @@ export const createProject = asyncHandler(async (req, res) => {
 });
 
 export const joinByPasswordProject = asyncHandler(async (req, res) => {
+    console.log("A", req.body);
     const { projName, projPassword } = req.body;
     if (!projName || !projPassword) throw new ApiError(400, "Fill all credentials");
 
-    const project = await Project.findOne({ projPassword });
+    const project = await Project.findOne({ projName });
+    console.log("B", project);
     if (!project) throw new ApiError(500, "Project not found");
+
+    const ress = await project.isPasswordCheck(projPassword);
+
+    console.log("C", ress);
 
     if (!project.members.includes(req.user._id)) {
         project.members.push(req.user._id);
-        await Project.save();
+        await project.save();
     }
 
     return res
