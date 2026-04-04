@@ -11,11 +11,15 @@ import Workspace from "./pages/Workspace.jsx"
 import HowItWork from "./components/HowItWork.jsx"
 
 function App() {
-  const { authUser, check, isCheckAuth } = userStore();
+  const { authUser, check, isCheckAuth, socketConnect } = userStore();
 
   useEffect(() => {
     check();
   }, [check])
+
+  useEffect(() => {
+    if(authUser) socketConnect();
+  }, [authUser, socketConnect])
 
   if(isCheckAuth) return <PageLoader />;
   return (
@@ -25,6 +29,7 @@ function App() {
         <Route path="/login" element={!authUser ? <Login/> : <Navigate to={"/"} />}/>
         <Route path="/signin" element={!authUser ? <Signin/> : <Navigate to={"/"} />}/>
         <Route path="/feature" element={<Feature />} />
+        <Route path="/getstart/:id" element={<Workspace />} />
         <Route path="/getstart" element={<Workspace />} />
         <Route path="/howitwork" element={<HowItWork />} />
       </Routes>   

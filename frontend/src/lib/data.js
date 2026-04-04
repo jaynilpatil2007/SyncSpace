@@ -1,11 +1,6 @@
 // Team member avatar data
 export const teamMembers = [
-    { id: 1, name: 'Sarah Chen', initials: 'SC', color: '#6366f1', textColor: '#fff' },
-    { id: 2, name: 'Alex Rivera', initials: 'AR', color: '#f59e0b', textColor: '#fff' },
-    { id: 3, name: 'Jordan Lee', initials: 'JL', color: '#10b981', textColor: '#fff' },
-    { id: 4, name: 'Taylor Kim', initials: 'TK', color: '#ef4444', textColor: '#fff' },
-    { id: 5, name: 'Morgan Davis', initials: 'MD', color: '#8b5cf6', textColor: '#fff' },
-    { id: 6, name: 'Casey Wright', initials: 'CW', color: '#ec4899', textColor: '#fff' },
+
 ];
 
 export const defaultTasks = [
