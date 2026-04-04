@@ -211,7 +211,7 @@ export default function Home() {
               )
             })}
             <button className="ss-btn-header" 
-            onClick={() => navigate("/getstart")}
+            onClick={() => navigate("/getstart/choose")}
             
             style={{
               marginTop: 20, width: "100%", padding: "13px 18px", borderRadius: 20,
@@ -255,7 +255,7 @@ export default function Home() {
               justifyContent: isMobile ? "center" : "flex-start",
               gap: 10, width: isMobile ? "100%" : "auto",
             }}
-            onClick={() => navigate("/getstart")}>
+            onClick={() => navigate("/getstart/choose")}>
               <BtnIcon />
               Get Started
             </button>

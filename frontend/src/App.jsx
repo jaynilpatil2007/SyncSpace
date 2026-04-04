@@ -9,6 +9,9 @@ import PageLoader from "./components/PageLoader.jsx"
 import Feature from "./components/Feature.jsx"
 import Workspace from "./pages/Workspace.jsx"
 import HowItWork from "./components/HowItWork.jsx"
+import Auth from "./components/Auth/Auth.jsx"
+import Create from "./components/Create/Create.jsx"
+import Choose from './components/Choose/Choose.jsx'
 
 function App() {
   const { authUser, check, isCheckAuth, socketConnect } = userStore();
@@ -32,6 +35,9 @@ function App() {
         <Route path="/getstart/:id" element={<Workspace />} />
         <Route path="/getstart" element={<Workspace />} />
         <Route path="/howitwork" element={<HowItWork />} />
+        <Route path="/getstart/create" element={<Create />} />
+        <Route path="/getstart/join" element={<Auth />} />
+        <Route path="/getstart/choose" element={<Choose />} />
       </Routes>   
      
       <Toaster/>

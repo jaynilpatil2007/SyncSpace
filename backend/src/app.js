@@ -16,8 +16,10 @@ app.use(cookieParser());
 
 import authRoute from "./routes/user.route.js";
 import docRoute from "./routes/doc.route.js";
+import projRoute from "./routes/proj.route.js";
 
 app.use("/api/auth", authRoute);
 app.use("/api/document", docRoute);
+app.use("/api/getstart", projRoute);
 
 export default app;
