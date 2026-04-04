@@ -3,6 +3,7 @@ import { connectDB } from './db/db.js';
 import dotenv from "dotenv";
 import path from "path";
 import express from "express";
+import { server } from "./utils/socket.js";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ app.use((_, res) => {
 
 connectDB()
     .then(() => {
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`The server is live on port: ${PORT}`);
         })
     })

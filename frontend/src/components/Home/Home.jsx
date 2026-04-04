@@ -139,9 +139,19 @@ export default function Home() {
           {/* Desktop nav */}
           {!isMobile && (
             <nav style={{ display: "flex", gap: isTablet ? 16 : 24 }}>
-              {["Home", "Features", "How it Works", "Demo"].map((item) => (
-                <a key={item} href={`#${item.toLowerCase().replace(/ /g, "")}`} className="ss-nav-link">{item}</a>
-              ))}
+              {["Home", "Features", "How it Works", "Demo"].map((item) => {
+              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : `#`;
+              return(
+                <Link
+                  key={item}
+                  to={path}
+                  className="ss-mobile-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              )
+            })}
             </nav>
           )}
 
@@ -186,12 +196,19 @@ export default function Home() {
             overflow: "hidden",
             transition: "max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.3s",
           }}>
-            {["Home", "Features", "How it Works", "Demo"].map((item) => (
-              <a key={item} href={`#${item.toLowerCase().replace(/ /g, "")}`}
-                className="ss-mobile-link"
-                onClick={() => setMenuOpen(false)}
-              >{item}</a>
-            ))}
+            {["Home", "Features", "How it Works", "Demo"].map((item) => {
+              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : `#`;
+              return(
+                <Link
+                  key={item}
+                  to={path}
+                  className="ss-mobile-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              )
+            })}
             <button className="ss-btn-header" style={{
               marginTop: 20, width: "100%", padding: "13px 18px", borderRadius: 20,
               fontSize: 14, fontWeight: 500, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,

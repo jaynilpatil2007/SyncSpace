@@ -3,9 +3,10 @@ import {Toaster} from "react-hot-toast"
 import Home from "./components/Home/Home"
 import Login from "./components/Login/Login"
 import Signin from "./components/Signin/Signin"
-import { userStore } from "./store/userStore"
+import { userStore } from "./store/userStore.js"
 import { useEffect } from "react"
-import PageLoader from "./components/PageLoader"
+import PageLoader from "./components/PageLoader.jsx"
+import Feature from "./components/Feature.jsx"
 
 function App() {
   const { authUser, check, isCheckAuth } = userStore();
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={authUser ? <Home/> : <Navigate to={"/login"} />}/>
         <Route path="/login" element={!authUser ? <Login/> : <Navigate to={"/"} />}/>
         <Route path="/signin" element={!authUser ? <Signin/> : <Navigate to={"/"} />}/>
+        <Route path="/feature" element={<Feature />} />
       </Routes>   
      
       <Toaster/>
