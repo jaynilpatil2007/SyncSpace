@@ -4,7 +4,7 @@ import {Toaster} from "react-hot-toast"
 import Home from "./components/Home/Home"
 import Login from "./components/Login/Login"
 import Signin from "./components/Signin/Signin"
-
+import SyncSpace from "./components/Edit/Edit"
 function App() {
 
 
@@ -14,7 +14,13 @@ function App() {
   <Route path="/" element={<Home/>}/>
   <Route path="/login" element={<Login/>}/>
   <Route path="/signin" element={<Signin/>}/>
+  <Route path="/feature" element={<Feature/>}/>
+  <Route path="/edit" element={<Edit/>}/>
+  
+
   </Routes>   
+
+  <SyncSpace />
      <Toaster/>
 
     </>
