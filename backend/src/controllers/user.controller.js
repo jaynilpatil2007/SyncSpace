@@ -49,8 +49,7 @@ export const signup = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: true
     }
 
     return res
@@ -78,8 +77,7 @@ export const login = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: true
     }
 
     return res
@@ -105,8 +103,7 @@ export const logout = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: true
     }
 
     return res
