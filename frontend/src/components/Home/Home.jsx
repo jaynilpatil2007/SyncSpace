@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 
 /* ── Responsive hook ── */
 function useBreakpoint() {
@@ -70,6 +70,7 @@ const HamburgerIcon = ({ open }) => (
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { isMobile, isTablet } = useBreakpoint();
+  const navigate = useNavigate();
 
   const px = isMobile ? 20 : isTablet ? 36 : 60;
   const h1Size = isMobile ? 36 : isTablet ? 54 : 80;
@@ -140,7 +141,7 @@ export default function Home() {
           {!isMobile && (
             <nav style={{ display: "flex", gap: isTablet ? 16 : 24 }}>
               {["Home", "Features", "How it Works", "Demo"].map((item) => {
-              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : `#`;
+              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : item === "How it Works" ? "/howitwork" : "#";
               return(
                 <Link
                   key={item}
@@ -197,7 +198,7 @@ export default function Home() {
             transition: "max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.3s",
           }}>
             {["Home", "Features", "How it Works", "Demo"].map((item) => {
-              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : `#`;
+              const path = item === "Home" ? "/" : item === "Features" ? "/feature" : item === "How it Works" ? "/howitwork" : "#";
               return(
                 <Link
                   key={item}
@@ -209,7 +210,10 @@ export default function Home() {
                 </Link>
               )
             })}
-            <button className="ss-btn-header" style={{
+            <button className="ss-btn-header" 
+            onClick={() => navigate("/getstart")}
+            
+            style={{
               marginTop: 20, width: "100%", padding: "13px 18px", borderRadius: 20,
               fontSize: 14, fontWeight: 500, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
             }}>
@@ -250,7 +254,8 @@ export default function Home() {
               display: "flex", alignItems: "center",
               justifyContent: isMobile ? "center" : "flex-start",
               gap: 10, width: isMobile ? "100%" : "auto",
-            }}>
+            }}
+            onClick={() => navigate("/getstart")}>
               <BtnIcon />
               Get Started
             </button>

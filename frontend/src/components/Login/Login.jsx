@@ -49,7 +49,7 @@ export default function Login() {
   const handleLogin = async () => {
     setLoading(true);
 
-    login(form);
+    await login(form);
 
     setLoading(false);
   };

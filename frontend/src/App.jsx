@@ -7,6 +7,8 @@ import { userStore } from "./store/userStore.js"
 import { useEffect } from "react"
 import PageLoader from "./components/PageLoader.jsx"
 import Feature from "./components/Feature.jsx"
+import Workspace from "./pages/Workspace.jsx"
+import HowItWork from "./components/HowItWork.jsx"
 
 function App() {
   const { authUser, check, isCheckAuth } = userStore();
@@ -23,6 +25,8 @@ function App() {
         <Route path="/login" element={!authUser ? <Login/> : <Navigate to={"/"} />}/>
         <Route path="/signin" element={!authUser ? <Signin/> : <Navigate to={"/"} />}/>
         <Route path="/feature" element={<Feature />} />
+        <Route path="/getstart" element={<Workspace />} />
+        <Route path="/howitwork" element={<HowItWork />} />
       </Routes>   
      
       <Toaster/>
