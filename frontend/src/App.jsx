@@ -28,9 +28,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={authUser ? <Home/> : <Navigate to={"/login"} />}/>
-        <Route path="/login" element={!authUser ? <Login/> : <Navigate to={"/"} />}/>
-        <Route path="/signin" element={!authUser ? <Signin/> : <Navigate to={"/"} />}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/signin" element={<Signin/>}/>
         <Route path="/feature" element={<Feature />} />
         <Route path="/getstart/:id" element={<Workspace />} />
         <Route path="/getstart" element={<Workspace />} />
