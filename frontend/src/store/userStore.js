@@ -25,7 +25,7 @@ export const userStore = create((set, get) => ({
         try {
             const res = await axiosInstance.post("/auth/signup", data);
             set({
-                authUser: res.data.data
+                authUser: res.data
             })
             toast.success("Sign up Succesfully")
         }
